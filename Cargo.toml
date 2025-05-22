@@ -1,0 +1,9 @@
+[package]
+name = "OSIRIS"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+opencv = "0.94.4"
+anyhow = "1.0.98"
+colored = "3.0.0"
