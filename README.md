@@ -12,7 +12,7 @@ Il devra principalement servir à detecter des figures geometriques ou des visag
 - [ ] Improve Code level
 - [ ] Facial Recognition 
 - [ ] Symboles Recognition
-- [ ] Gesture Recognition
+- [ ] Gesture Recognition 
 - [ ] Vocal Recognition
 - [ ] Add a GUI Interface 
 - [ ] Join to LLM
