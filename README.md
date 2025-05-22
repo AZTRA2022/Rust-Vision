@@ -15,7 +15,7 @@ Il devra principalement servir à detecter des figures geometriques ou des visag
 - [ ] Gesture Recognition 
 - [ ] Vocal Recognition
 - [ ] Add a GUI Interface 
-- [ ] Join to LLM
+- [ ] Join to LLM 
 - [ ] Integrate To Devices (Tablets , Watchs, Phones , Computers... , Security-Cams)
 - [ ] Join to a Custom [Linux](https://www.kernel.org/) Kernel (CLK). Preference for [Ubuntu](https://ubuntu.com/).
 
