@@ -47,13 +47,17 @@ impl Video {
                 videoio::VideoCapture::new(*id, videoio::CAP_ANY)?
             },
             CameraSource::Online(url) => {
-                let cap = videoio::VideoCapture::from_file(&url, videoio::CAP_ANY)
-                    .with_context(|| format!("Failed to connect to {}", url))?;
-                if !cap.is_opened()? {
-                    anyhow::bail!("Unable to open the flux : {}", url);
-                }
+                let cap = loop{
+                    let res = videoio::VideoCapture::from_file(&url, videoio::CAP_ANY)
+                        .with_context(|| format!("Failed to connect to {}", url))?;
+                    // I think that is a security for prevent bug or connection timeout
+                    if res.is_opened()? {
+                        break res;
+                    }
+                    std::thread::sleep(std::time::Duration::from_millis(1000));
+                };
                 cap
-            },
+            },  
             CameraSource::Unavailable => {
                 anyhow::bail!("Aucune caméra disponible")
             }

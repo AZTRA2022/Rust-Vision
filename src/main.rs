@@ -5,6 +5,7 @@ pub mod video;
 fn main() {
     let mut video = Video::new(
         CameraSource::Online("http://192.168.1.10:4747/video/".to_string()),
+        // use another CameraSource if your computer have a Webcam
         (640.0, 480.0),
         60.0,
     );

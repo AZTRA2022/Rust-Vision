@@ -16,8 +16,8 @@ Il devra principalement servir à detecter des figures geometriques ou des visag
 #### - [ ] Vocal Recognition
 #### - [ ] Add a GUI Interface 
 #### - [ ] Join to LLM
-#### - [ ] Integrate In Devices (Tablets , Watchs, Phones , Computers... , Security-Cams)
-#### - [ ] Join to a Custom [Linux](https://www.kernel.org/) Kernel (CLK)
+#### - [ ] Integrate To Devices (Tablets , Watchs, Phones , Computers... , Security-Cams)
+#### - [ ] Join to a Custom [Linux](https://www.kernel.org/) Kernel (CLK). Preference for [Ubuntu](https://ubuntu.com/).
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
@@ -25,4 +25,4 @@ Il devra principalement servir à detecter des figures geometriques ou des visag
 ```bash
 git clone https://github.com/ATRA2022/OSIRIS.git
 cd OSIRIS
-cargo add
+cargo build
