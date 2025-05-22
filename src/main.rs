@@ -1,6 +1,7 @@
 use opencv::core::Mat;
 use crate::video::{CameraSource, Video};
 pub mod video;
+mod face;
 
 fn main() {
     let mut video = Video::new(
