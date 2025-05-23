@@ -4,21 +4,22 @@
 
 ![image](face.jpeg)
 
-Bienvenue ici !
-OSIRIS est un projet open-source basé sur [Opencv](https://github.com/opencv/opencv) et le language [Rust](https://www.rust-lang.org/).
-Il devra principalement servir à detecter des figures geometriques ou des visages recherchés.
+Welcome here!
+OSIRIS is an open-source project based on [Opencv](https://github.com/opencv/opencv)
+and [Rust](https://www.rust-lang.org/) programming language.
+Its main purpose is to detect geometric shapes and specific faces.
 
-## - objectifs:
+## - Objectives:
 
 - [x] Face Detection
-- [ ] Improve Code level
-- [ ] Facial Recognition 
-- [ ] Symboles Recognition
-- [ ] Gesture Recognition 
+- [ ] Improve Code level to make it scalable and reusable
+- [ ] Facial Recognition
+- [ ] Symbol Recognition
+- [ ] Gesture Recognition
 - [ ] Vocal Recognition
-- [ ] Add a GUI Interface 
-- [ ] Join to LLM 
-- [ ] Integrate To Devices (Tablets , Watchs, Phones , Computers... , Security-Cams)
+- [ ] Add a GUI Interface
+- [ ] Join to LLM
+- [ ] Integrate To Devices (Tablets, Watches, Phones, Computers..., Security-Cams)
 - [ ] Join to a Custom [Linux](https://www.kernel.org/) Kernel (CLK). Preference for [Ubuntu](https://ubuntu.com/).
 
       
@@ -28,7 +29,9 @@ Il devra principalement servir à detecter des figures geometriques ou des visag
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 
 ## Installation
+
 ```bash
 git clone https://github.com/ATRA2022/OSIRIS.git
 cd OSIRIS
 cargo build
+

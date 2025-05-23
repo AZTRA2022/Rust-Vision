@@ -1,10 +1,10 @@
+// implement here all the methods related to the video or the camera
+
 use opencv::{
     prelude::*,
     videoio,
     highgui,
     objdetect,
-    imgproc,
-    core::{self, Vector},
     Result as OpenCVResult,
 };
 use anyhow::{Result, Context};
@@ -20,7 +20,7 @@ pub struct Video {
     cap: Option<videoio::VideoCapture>,
     pub dimension: (f64, f64),
     pub fps: f64,
-    face_detector: Option<objdetect::CascadeClassifier>,
+    pub face_detector: Option<objdetect::CascadeClassifier>,
 }
 
 impl Video {
@@ -89,44 +89,12 @@ impl Video {
         Ok(frame)
     }
 
-    pub fn detect_faces(&mut self, frame: &mut Mat) -> Result<()> {
-        let mut gray = Mat::default();
-        imgproc::cvt_color(frame, &mut gray, imgproc::COLOR_BGR2GRAY, 0)?;
-
-        let mut faces = Vector::new();
-        if let Some(ref mut detector) = self.face_detector {
-            detector.detect_multi_scale(
-                &gray,
-                &mut faces,
-                1.1,
-                10,
-                objdetect::CASCADE_SCALE_IMAGE,
-                core::Size::new(30, 30),
-                core::Size::new(0, 0),
-            )?;
-        }
-
-        for face in faces.iter() {
-            imgproc::rectangle(
-                frame,
-                face,
-                core::Scalar::new(0.0, 255.0, 0.0, 0.0),
-                2,
-                imgproc::LINE_8,
-                0,
-            )?;
-        }
-
-        Ok(())
-    }
-
     pub fn display(&mut self, title: &str) -> OpenCVResult<()> {
         println!("Connexion Established Press 'q' to Quit");
 
         loop {
             match self.read_frame() {
                 Ok(mut frame) => {
-                    self.detect_faces(&mut frame);
                     highgui::imshow(title, &frame)?;
                 },
                 Err(e) => {
