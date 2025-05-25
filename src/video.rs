@@ -1,13 +1,9 @@
 // implement here all the methods related to the video or the camera
 
-use opencv::{
-    prelude::*,
-    videoio,
-    highgui,
-    objdetect,
-    Result as OpenCVResult,
-};
+use opencv::{prelude::*, videoio, highgui, objdetect, Result as OpenCVResult, imgproc};
 use anyhow::{Result, Context};
+use opencv::core::Vector;
+use opencv::videoio::VideoCapture;
 
 pub enum CameraSource {
     Camera(i32),
@@ -74,6 +70,38 @@ impl Video {
         Ok(())
     }
 
+
+    pub fn detect_face(&mut self ,video: Option<&VideoCapture>, frame: &mut Mat) -> anyhow::Result<()> {
+        let mut gray = Mat::default();
+        imgproc::cvt_color(frame, &mut gray, imgproc::COLOR_BGR2GRAY, 0)?;
+
+        let mut faces = Vector::new();
+        if let Some(ref mut detector) = self.face_detector {
+            detector.detect_multi_scale(
+                &gray,
+                &mut faces,
+                1.1,
+                10,
+                objdetect::CASCADE_SCALE_IMAGE,
+                opencv::core::Size::new(30, 30),
+                opencv::core::Size::new(0, 0),
+            )?;
+        }
+
+        for face in faces.iter() {
+            imgproc::rectangle(
+                frame,
+                face,
+                opencv::core::Scalar::new(0.0, 255.0, 0.0, 0.0),
+                2,
+                imgproc::LINE_8,
+                0,
+            )?;
+        }
+
+        Ok(())
+    }
+
     pub fn read_frame(&mut self) -> Result<Mat> {
         let cap = self.cap.as_mut()
             .ok_or_else(|| anyhow::anyhow!("Capture uninitialised"))?;
@@ -88,17 +116,21 @@ impl Video {
 
         Ok(frame)
     }
-
     pub fn display(&mut self, title: &str) -> OpenCVResult<()> {
-        println!("Connexion Established Press 'q' to Quit");
+        println!("Connection Established. Press 'q' to Quit");
 
         loop {
-            match self.read_frame() {
+            // Read a frame from the video source
+            let frame_result = self.read_frame();
+
+            match frame_result {
                 Ok(mut frame) => {
+                    // Call detect_face with a mutable reference to frame
+                    self.detect_face(None, &mut frame);
                     highgui::imshow(title, &frame)?;
-                },
+                }
                 Err(e) => {
-                    eprintln!("Capture Error : {}", e);
+                    eprintln!("Capture Error: {}", e);
                     break;
                 }
             }
@@ -114,7 +146,6 @@ impl Video {
         Ok(())
     }
 }
-
 impl Drop for Video {
     fn drop(&mut self) {
         if let Some(cap) = self.cap.as_mut() {
